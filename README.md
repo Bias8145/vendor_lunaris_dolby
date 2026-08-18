@@ -34,18 +34,10 @@ This repository provides Dolby Atmos blobs and the **LunarisDolby** app for AOSP
 ### 1. Clone the repository
 
 ```bash
-git clone <this-repo> vendor/lunaris/dolby
+git clone https://github.com/Bias8145/vendor_lunaris_dolby.git vendor/lunaris/dolby
 ```
 
-Or add to your local manifest:
-
-```xml
-<project path="vendor/lunaris/dolby" name="your-org/vendor_lunaris_dolby" remote="github" />
-```
-
----
-
-### 2. Device makefile — `device.mk`
+### 2. Device makefile — `device.mk, device-common.mk`
 
 ```makefile
 $(call inherit-product, vendor/lunaris/dolby/dolby.mk)
@@ -53,22 +45,17 @@ $(call inherit-product, vendor/lunaris/dolby/dolby.mk)
 
 ---
 
-### 3. Board config — `BoardConfig.mk`
+### 3. Board config — `BoardConfig.mk, BoardConfig-common.mk`
 
 ```makefile
 include vendor/lunaris/dolby/BoardConfigDolby.mk
 ```
-
-> **⚠️ Important:** Make sure `DEVICE_MANIFEST_FILE` and `DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE` use `+=` not `:=` in your device tree to avoid overriding the Dolby VINTF entries.
-
 ---
 
 ### 4. VINTF manifests
+> **⚠️ Important:** Make sure `DEVICE_MANIFEST_FILE` and `DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE` use `+=` not `:=` in your device tree to avoid overriding the Dolby VINTF entries.
 
 ```makefile
-DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE += \
-    vendor/lunaris/dolby/vintf/dolby_framework_compatibility_matrix.xml
-
 DEVICE_MANIFEST_FILE += \
     vendor/lunaris/dolby/vintf/dolby_manifest.xml
 ```
